@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.clydemar.homemonitoring"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5a7a8aac-3e6b-4fd1-a487-3f45dfe2a263"
+      }
+    },
+    "owner": "clydemar"
   }
 }
