@@ -6,8 +6,8 @@ import io from 'socket.io-client';
 import SideBar from './components/SideBar';
 import Controls from './components/Controls';
 
-// const socket = io.connect('https://socketiopractice.onrender.com');
-const socket = io.connect('http://192.168.1.6:8900');
+const socket = io.connect('https://thesis-socketio-server.onrender.com');
+// const socket = io.connect('http://192.168.1.6:8900');
 
 export default function App() {
   const [remoteCapturedImage, setRemoteCapturedImage] = useState(null);
