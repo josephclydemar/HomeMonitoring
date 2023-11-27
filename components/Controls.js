@@ -1,4 +1,5 @@
 // import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -6,34 +7,20 @@ const styles = StyleSheet.create({
         padding: 40
     },
     pressables: {
-        backgroundColor: '#f00',
         width: 200,
         padding: 20,
         borderRadius: 5
     },
     texts: {
-        color: '#fff',
         fontSize: 20,
+        fontWeight: '900',
         textAlign: 'center'
     }
 });
 
-function Controls() {
-    // const [openDoorPressed, setOpenDoorPressed] = useState(false);
-    // const [openDoorOpacity, setOpenDoorOpacity] = useState(1);
-
-    // useEffect(() => {
-    //     if(openDoorPressed) {
-    //         setOpenDoorOpacity(() => 0.5);
-    //         setTimeout(() => {
-    //             setOpenDoorOpacity(() => 1);
-    //         }, 500);
-    //     }
-    //     console.log('HAHA');
-    //     return () => {
-    //         setOpenDoorPressed(() => false);
-    //     };
-    // }, [openDoorOpacity]);
+function Controls({ socket }) {
+    const [isOpenDoor, setIsOpenDoor] = useState(false);
+    const [isOnLight, setIsOnLight] = useState(false);
 
     return (
         <View>
@@ -41,22 +28,52 @@ function Controls() {
                 margin: 10
             }}>
                 <Pressable 
-                    style={styles.pressables}
+                    style={[styles.pressables, isOpenDoor === false ? {
+                        backgroundColor: '#A36DDE',
+                    }: {
+                        backgroundColor: '#105730'
+                    }]}
                     onPress={() => {
-                        console.log('Open Door');
+                        if(!isOpenDoor) {
+                            socket.emit('door_control', 'open_DOOR');
+                            setIsOpenDoor(prev => !prev);
+                        } else {
+                            socket.emit('door_control', 'close_DOOR');
+                            setIsOpenDoor(prev => !prev);
+                        }
+                        // console.log('Open Door');
                     }}>
-                    <Text style={styles.texts}>Open Door</Text>
+                    <Text style={[styles.texts, isOpenDoor === false ? {
+                        color: '#000'
+                    } : {
+                        color: '#fff'
+                    }]}>{ isOpenDoor === false ? 'Open Door' : 'Close Door' }</Text>
                 </Pressable>
             </View>
             <View style={{
                 margin: 10
             }}>
                 <Pressable 
-                    style={styles.pressables}
+                    style={[styles.pressables, isOnLight === false ? {
+                        backgroundColor: '#A36DDE'
+                    } : {
+                        backgroundColor: '#105730'
+                    }]}
                     onPress={() => {
-                        console.log('Turn on Lights');
+                        if(!isOnLight) {
+                            socket.emit('light_control', 'on_LIGHT');
+                            setIsOnLight(prev => !prev);
+                        } else {
+                            socket.emit('light_control', 'off_LIGHT');
+                            setIsOnLight(prev => !prev);
+                        }
+                        // console.log('Turn on Lights');
                     }}>
-                    <Text style={styles.texts}>Turn on Lights</Text>
+                    <Text style={[styles.texts, isOnLight === false ? {
+                        color: '#000'
+                    } : {
+                        color: '#fff'
+                    }]}>{ isOnLight === false ? 'Turn On Lights' : 'Turn Off Lights' }</Text>
                 </Pressable>
             </View>
         </View>

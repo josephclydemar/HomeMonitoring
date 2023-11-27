@@ -6,21 +6,22 @@ import io from 'socket.io-client';
 import SideBar from './components/SideBar';
 import Controls from './components/Controls';
 
-const socket = io.connect('https://socketiopractice.onrender.com');
+// const socket = io.connect('https://socketiopractice.onrender.com');
+const socket = io.connect('http://192.168.1.6:8900');
 
 export default function App() {
-  const [remoteData, setRemoteData] = useState(null);
+  const [remoteCapturedImage, setRemoteCapturedImage] = useState(null);
 
   useEffect(() => {
-    if(remoteData !== null) {
-      console.log(remoteData.split(' ')[1]);
+    if(remoteCapturedImage !== null) {
+      console.log(remoteCapturedImage.split(' ')[1]);
     }
-  }, [remoteData]);
+  }, [remoteCapturedImage]);
 
 
   useEffect(() => {
-    socket.on('message', (data) => {
-      setRemoteData(data);
+    socket.on('image_capture', (data) => {
+      setRemoteCapturedImage(data);
     });
   }, []);
 
@@ -40,7 +41,7 @@ export default function App() {
             fontWeight: 900
           }}>HomeWarden</Text>
           {
-            remoteData !== null ?
+            remoteCapturedImage !== null ?
               <Image 
               style={{
                 width: 280,
@@ -48,7 +49,7 @@ export default function App() {
                 resizeMode: 'contain',
               }}
               source={{
-                uri: `data:image/jpeg;base64,${remoteData.split(' ')[1]}`
+                uri: `data:image/jpeg;base64,${remoteCapturedImage}`
               }}/>
               : 
               <Text style={{
@@ -57,7 +58,7 @@ export default function App() {
               }}>No Image</Text>
           }
         </View>
-        <Controls />
+        <Controls socket={socket} />
       </View>
     </View>
   );
