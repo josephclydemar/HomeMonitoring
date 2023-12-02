@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -31,30 +31,16 @@ const styles = StyleSheet.create({
 
 
 
-function ImageCaptureButton({ socket }) {
+function ImageCaptureButton({ socket, isCaptureImage, setIsCaptureImage }) {
     return (
         <View style={styles.container}>
             <Pressable 
-                style={[styles.pressables, isOnLight === false ? {
-                    backgroundColor: '#A36DDE'
-                } : {
-                    backgroundColor: '#105730'
-                }]}
+                style={[styles.pressables, isCaptureImage === false ? styles.isBoxNotAffected : styles.isBoxAffected]}
                 onPress={() => {
-                    if(!isOnLight) {
-                        socket.emit('light_control', 'on_LIGHT');
-                        setIsOnLight(prev => !prev);
-                    } else {
-                        socket.emit('light_control', 'off_LIGHT');
-                        setIsOnLight(prev => !prev);
-                    }
-                    // console.log('Turn on Lights');
+                    socket.emit('capture_image', 'capture_front_door_image');
+                    setIsCaptureImage(prev => true);
                 }}>
-                <Text style={[styles.texts, isOnLight === false ? {
-                    color: '#000'
-                } : {
-                    color: '#fff'
-                }]}>{ isOnLight === false ? 'Turn On Lights' : 'Turn Off Lights' }</Text>
+                <Text style={[styles.texts, isCaptureImage === false ? styles.isBoxTextNotAffected : styles.isBoxTextAffected]}>{ isCaptureImage === false ? 'Capture Image' : 'Capturing Image...' }</Text>
             </Pressable>
         </View>
     );

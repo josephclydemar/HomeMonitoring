@@ -10,13 +10,13 @@ const styles = StyleSheet.create({
     }
 });
 
-function Controls({ socket }) {
+function Controls({ socket, isCaptureImage, setIsCaptureImage }) {
 
     return (
         <View>
             <DoorControlButton socket={socket} />
             <LightControlButton socket={socket} />
-            <ImageCaptureButton socket={socket} />
+            <ImageCaptureButton socket={socket} isCaptureImage={isCaptureImage} setIsCaptureImage={setIsCaptureImage} />
         </View>
     );
 }
