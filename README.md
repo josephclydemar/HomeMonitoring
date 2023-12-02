@@ -1,1 +1,5 @@
-# Home Monitoring Mobile Application in React-Native
+# Home Monitoring Mobile Application - React-Native
+
+<br>
+
+**Build to APK Command:**  `eas build -p android --profile preview`

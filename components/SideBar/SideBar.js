@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons, Foundation, FontAwesome } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,15 +13,15 @@ const styles = StyleSheet.create({
   }
 });
 
-function SideBar() {
+function SideBar({ navigation }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Home') }>
         <View style={styles.items}>
           <Ionicons name='home' size={40} color='black' />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('CapturedImagesScreen')}>
         <View style={styles.items}>
           <FontAwesome name='file-picture-o' size={40} color='black' />
         </View>
@@ -40,5 +41,5 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default withNavigation(SideBar);
 
