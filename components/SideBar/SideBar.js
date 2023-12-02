@@ -3,7 +3,7 @@ import { Ionicons, Foundation } from '@expo/vector-icons';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ff0',
+    backgroundColor: '#dd0',
     width: 80,
     paddingTop: 80
   },
