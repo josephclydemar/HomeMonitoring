@@ -12,6 +12,9 @@ function CapturedImagesScreen() {
         axios.get('https://thesis-express-server.onrender.com/captured_images')
         .then(response => {
             setAllCapturedImages(prev => response.data);
+        }).catch(error => {
+            console.log(error.message);
+            setAllCapturedImages(prev => null);
         });
     }, []);
 

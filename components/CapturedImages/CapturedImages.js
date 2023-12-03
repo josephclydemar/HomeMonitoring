@@ -10,7 +10,7 @@ function CapturedImages({ allCapturedImages }) {
                         <Image 
                             key={item._id}
                             style={{
-                            width: 295,
+                            width: 285,
                             height: 200,
                             resizeMode: 'contain',
                             }}

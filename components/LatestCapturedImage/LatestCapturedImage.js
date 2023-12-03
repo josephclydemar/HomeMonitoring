@@ -21,7 +21,7 @@ function LatestCapturedImage({ remoteCapturedImage, navigation }) {
                 { remoteCapturedImage !== null ?
                     <Image 
                         style={{
-                        width: 295,
+                        width: 285,
                         height: 280,
                         resizeMode: 'contain',
                         }}
